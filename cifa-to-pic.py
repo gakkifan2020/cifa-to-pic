@@ -49,5 +49,5 @@ def cifar10_to_images():
             os.makedirs(test_root_dir + dst)
         picName = test_root_dir + dst + str(i) + '.jpg'
         cv2.imwrite(picName, img)
-    print("test_batch loaded.")
+    print("test_batch loaded, OK")
 cifar10_to_images()
