@@ -29,8 +29,11 @@ def cifar10_to_images():
         for i in range(0, 10000):
             img = np.reshape(Xtr['data'][i], (3, 32, 32))  # Xtr['data']为图片二进制数据
             img = img.transpose(1, 2, 0)  # 读取image
-            picName = train_root_dir + str(Xtr['labels'][i]) + '_' + label_names[Xtr['labels'][i]] + '_' + str(
-                i + (j - 1) * 10000) + '.jpg'  # label+class+index
+            dst = label_names[Xtr['labels'][i]] +'/'
+            if not os.path.exists(train_root_dir + dst ):
+                os.makedirs(train_root_dir + dst )
+            picName = train_root_dir + dst + str(
+                i + (j - 1) * 10000) + '.jpg'  # class 是文件夹名  index 是序号
             cv2.imwrite(picName, img)
         print(dataName + " loaded.")
 
@@ -41,8 +44,10 @@ def cifar10_to_images():
     for i in range(0, 10000):
         img = np.reshape(testXtr['data'][i], (3, 32, 32))
         img = img.transpose(1, 2, 0)
-        picName = test_root_dir + str(testXtr['labels'][i]) + '_' + label_names[testXtr['labels'][i]] + '_' + str(
-            i) + '.jpg'
+        dst = label_names[testXtr['labels'][i]] +'/'
+        if not os.path.exists(test_root_dir + dst):
+            os.makedirs(test_root_dir + dst)
+        picName = test_root_dir + dst + str(i) + '.jpg'
         cv2.imwrite(picName, img)
     print("test_batch loaded.")
 cifar10_to_images()
